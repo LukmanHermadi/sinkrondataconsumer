@@ -1,0 +1,3 @@
+id\alto\notif\consumer\config\KafkaConsumerConfig.class
+com\integrasi\lhd\sinkrondataconsumer\entity\Client.class
+com\integrasi\lhd\sinkrondataconsumer\SinkrondataconsumerApplication.class

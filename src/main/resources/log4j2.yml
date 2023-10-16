@@ -1,0 +1,35 @@
+Configuration:
+  status: warn
+
+  appenders:
+    Console:
+      name: LogToConsole
+      PatternLayout:
+        Pattern: "%d{yyy-MM-dd HH:mm:ss:SSS} %-5level [${env:SPRING_APPLICATION_NAME},%X{traceId},%X{spanId}] --- [%t] %c{1} : %msg%n"
+
+    RollingFile:
+      name: LogToRollingFile
+      fileName: servicelog/sinkrondataconsumer.log
+      filePattern: "servicelog/$${date:yyyy-MM}/sinkrondataconsumer-%d{MM-dd-yyyy}-%i.log.gz"
+      PatternLayout:
+        Pattern: "%d{yyy-MM-dd HH:mm:ss:SSS} %-5level [${env:SPRING_APPLICATION_NAME},%X{traceId},%X{spanId}] --- [%t] %c{1} : %msg%n"
+      Policies:
+        SizeBasedTriggeringPolicy:
+          size: 50 MB
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+      DefaultRollOverStrategy:
+        max: 10
+
+  Loggers:
+    logger:
+      name: com.lhd
+      additivity: false
+      AppenderRef:
+        - ref: LogToConsole
+        - ref: LogToRollingFile
+    Root:
+      level: info
+      AppenderRef:
+        ref: LogToConsole
